@@ -26,6 +26,19 @@ if(mouse_check_button_pressed(mb_left)){
 	var c3 = my > bh*(0.65-0.04)
 	var c4 = my < bh*(0.65+0.04)
 	if(c1 and c2 and c3 and c4){
+		
+		//telling the server to create a player for us
+		var Buffer = buffer_create(1, buffer_grow ,1);
+		var data = ds_map_create();
+		data[? "eventName"] = "create_me"
+		global.usename = keyboard_string;
+		data[?"username"] =  global.username;
+		
+	
+		buffer_write(Buffer , buffer_text  , json_encode(data));
+		network_send_raw(oController.socket , Buffer , buffer_tell(Buffer));
+		ds_map_destroy(data);
+		buffer_delete(Buffer)
 		room_goto(rGame)
 	}
 	
