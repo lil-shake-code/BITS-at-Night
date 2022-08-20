@@ -24,9 +24,9 @@ if(position_meeting(x + lengthdir_x(speed , direction),y +  lengthdir_y(speed , 
 		var Buffer = buffer_create(1, buffer_grow ,1);
 		var data = ds_map_create();
 		data[? "eventName"] = "state_update"
-		data[?"x"] =  x;
-		data[?"y"] =  y;
-		data[?"A"] = direction;
+		data[?"x"] =  floor(x);
+		data[?"y"] =  floor(y);
+		data[?"A"] = floor(direction);
 		data[?"T"] = global.torch;
 		data[?"id"] =  global.clientId;
 		

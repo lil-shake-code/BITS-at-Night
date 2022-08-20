@@ -26,12 +26,39 @@ switch(async_load[?"type"]){
 				
 			case "create_player":  //create an enemy
 		
-				var new_enemy = instance_create_layer(0,0,"Instances" , oEnemy)
-				new_enemy.clientId = real(realData[?"id"])
-				new_enemy.x = real(realData[?"x"])
-				new_enemy.y = real(realData[?"y"])
-				new_enemy.enemyUsername = (realData[?"name"])
+				if(real(realData[?"id"])  !=  global.clientId){
+					var new_enemy = instance_create_layer(0,0,"Instances" , oEnemy)
+					new_enemy.clientId = real(realData[?"id"])
+					new_enemy.x = real(realData[?"x"])
+					new_enemy.y = real(realData[?"y"])
+					new_enemy.enemyUsername = (realData[?"name"])
+				}
 				break;
+				
+			case "state_update":
+				
+				with(oEnemy){
+					if(clientId == (realData[?"id"]) ){
+					//we found the right enemy to update pos of
+					x = x*0.5 + 0.5* real(realData[?"x"]);
+					y = y*0.5 + 0.5* real(realData[?"y"]);
+					image_angle = real(realData[?"A"]);
+					torch = realData[?"torch"]
+					
+					}
+				}
+			break;
+			
+			
+			case "destroy_player":
+				
+				with(oEnemy){
+					if(clientId == real(realData[?"id"]) ){
+						instance_destroy(id);
+					
+					}
+				}
+			break;
 		
 		
 		}
