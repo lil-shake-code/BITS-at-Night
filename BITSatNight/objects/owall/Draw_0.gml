@@ -1,1 +1,0 @@
-draw_sprite(sWall , -1 , x , y)

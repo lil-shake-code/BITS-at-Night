@@ -43,7 +43,7 @@ switch(async_load[?"type"]){
 					x = x*0.5 + 0.5* real(realData[?"x"]);
 					y = y*0.5 + 0.5* real(realData[?"y"]);
 					image_angle = real(realData[?"A"]);
-					torch = realData[?"torch"]
+					torch = realData[?"T"]
 					
 					}
 				}

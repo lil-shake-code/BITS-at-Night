@@ -1,16 +1,18 @@
 {
-  "name": "oPlayer",
   "spriteId": {
     "name": "sPlayer",
     "path": "sprites/sPlayer/sPlayer.yy",
   },
-  "spriteMaskId": null,
-  "visible": true,
   "solid": false,
-  "persistent": false,
-  "physicsObject": false,
+  "visible": true,
   "managed": true,
-  "parentObjectId": null,
+  "spriteMaskId": null,
+  "persistent": false,
+  "parentObjectId": {
+    "name": "oLightParent",
+    "path": "objects/oLightParent/oLightParent.yy",
+  },
+  "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,
   "physicsGroup": 1,
@@ -33,6 +35,7 @@
     "path": "folders/Objects.yy",
   },
   "resourceVersion": "1.0",
+  "name": "oPlayer",
   "tags": [],
   "resourceType": "GMObject",
 }

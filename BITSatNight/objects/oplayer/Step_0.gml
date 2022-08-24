@@ -35,3 +35,7 @@ if(position_meeting(x + lengthdir_x(speed , direction),y +  lengthdir_y(speed , 
 		network_send_raw(oController.socket , Buffer , buffer_tell(Buffer));
 		ds_map_destroy(data);
 		buffer_delete(Buffer)
+		
+if(mouse_check_button_pressed(mb_right)){
+	global.torch = !global.torch;
+}

@@ -1,1 +1,1 @@
-shadow = surface_create(6000,3446)
+surf = -1;
