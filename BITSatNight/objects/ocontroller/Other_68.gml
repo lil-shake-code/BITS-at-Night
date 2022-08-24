@@ -44,6 +44,7 @@ switch(async_load[?"type"]){
 					y = y*0.5 + 0.5* real(realData[?"y"]);
 					image_angle = real(realData[?"A"]);
 					torch = realData[?"T"]
+					enemyHealth = real(realData[?"H"]);
 					
 					}
 				}
@@ -56,6 +57,22 @@ switch(async_load[?"type"]){
 					if(clientId == real(realData[?"id"]) ){
 						instance_destroy(id);
 					
+					}
+				}
+			break;
+			
+			case "bullet_shot":
+				
+				with(oEnemy){
+					if(clientId == real(realData[?"shooter"]) ){
+						//creating a bullet
+						var bullet = instance_create_layer(x +lengthdir_x(13 ,direction -85) ,y+lengthdir_y(13 ,direction-85)  ,"Instances",oBullet);
+						bullet.speed = 10;
+						bullet.direction = image_angle;
+						bullet.image_angle = bullet.direction;
+						reloading = 20;
+	
+				
 					}
 				}
 			break;
