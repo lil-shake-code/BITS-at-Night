@@ -45,8 +45,14 @@ switch(async_load[?"type"]){
 					image_angle = real(realData[?"A"]);
 					torch = realData[?"T"]
 					enemyHealth = real(realData[?"H"]);
+					body = realData[?"body"]
 					
 					}
+				}
+				if(global.clientId == (realData[?"id"])){
+					health  = real(realData[?"H"]);
+					oPlayer.body = realData[?"body"]
+				
 				}
 			break;
 			
@@ -66,11 +72,11 @@ switch(async_load[?"type"]){
 				with(oEnemy){
 					if(clientId == real(realData[?"shooter"]) ){
 						//creating a bullet
-						var bullet = instance_create_layer(x +lengthdir_x(13 ,direction -85) ,y+lengthdir_y(13 ,direction-85)  ,"Instances",oBullet);
+						var bullet = instance_create_layer(x +lengthdir_x(13 ,id.image_angle -85) ,y+lengthdir_y(13 ,id.image_angle-85)  ,"Instances",oBullet);
 						bullet.speed = 10;
-						bullet.direction = image_angle;
+						bullet.direction = id.image_angle;
 						bullet.image_angle = bullet.direction;
-						reloading = 20;
+						
 	
 				
 					}

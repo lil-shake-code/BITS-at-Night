@@ -11,7 +11,7 @@ if(point_distance(x,y, mouse_x , mouse_y) > 30){
 
 if(position_meeting(x + lengthdir_x(speed , direction),y +  lengthdir_y(speed , direction),oWall)){
 	//colliding with a wall - no freedom in image angle , only in direction
-	speed =0
+	if (body=="P") speed =0
 	
 	
 }else{
@@ -45,7 +45,7 @@ if(mouse_check_button_pressed(mb_right)){
 
 
 //shooting
-if(mouse_check_button_pressed(mb_left) and reloading <0){
+if(mouse_check_button_pressed(mb_left) and reloading <0 and body=="P"){
 	var bullet = instance_create_layer(x +lengthdir_x(13 ,direction -85) ,y+lengthdir_y(13 ,direction-85)  ,"Instances",oBullet);
 	bullet.speed = 10;
 	bullet.direction = direction;
@@ -82,3 +82,22 @@ if(mouse_check_button_pressed(mb_left) and reloading <0){
 
 reloading--;
 
+//health change
+if(health != oldHealth and body=="P"){
+	global.darkness = 0.7;
+	oldHealth = health;
+	blink = 6;
+
+}
+
+
+//ghosts sprite
+if(body=="G"){
+	sprite_index = sGhost
+	if(speed==0){
+		image_speed = 0;
+	}else{
+		image_speed = 1;
+	}
+	
+}

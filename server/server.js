@@ -22,6 +22,7 @@ function stateUpdate() {
             A: players[i].A,
             T: players[i].T,
             H: players[i].H,
+            body: players[i].body,
         }
 
         for (let j in players) {
@@ -65,7 +66,7 @@ function shootBullet(shootersId) {
         for (let i in players) {
             var distance = Math.sqrt((current_x - players[i].x) ** 2 + (current_y - players[i].y) ** 2);
             console.log(distance)
-            if (distance < 16) {
+            if (distance < 16 && players[i].body == "P") {
                 if (players[i].id != shootersId) { //make sure friendly fire doesnt exist
                     return players[i].id; //id of the guy who got shot
                 }
@@ -105,6 +106,7 @@ wss.on("connection", ws => {
                             A: 0, //THE ANGLE
                             T: false, // if torch is on or off
                             H: 100, //health
+                            body: "P", //P G or D
                         }
                         //cross ref the id to ws
                     ws.clientId = clientId;
@@ -199,8 +201,10 @@ wss.on("connection", ws => {
                             if (players[i].id == victim) {
                                 players[i].H -= 30;
 
-                                if (players[i].H < 0) {
-                                    players[i].socket.close();
+                                if (players[i].H < 0 && players[i].body == "P") {
+                                    //Turn him into a ghost
+                                    players[i].body = "G";
+                                    players[i].H = 100; //reset ghost health to 100
                                 }
 
                             }

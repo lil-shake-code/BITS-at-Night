@@ -15,7 +15,7 @@ var _cx = camera_get_view_x(view_camera[0]);
 var _cy = camera_get_view_y(view_camera[0]);
 surface_set_target(surf);
 draw_set_color(c_black);
-draw_set_alpha(0.9);   //the ambient darkness
+draw_set_alpha(global.darkness);   //the ambient darkness
 draw_rectangle(0, 0, _cw, _ch, 0);
 gpu_set_blendmode(bm_subtract);
 with (oLightParent)
@@ -26,12 +26,16 @@ switch(object_index)
 {
 		
 		case oPlayer:
-		    draw_sprite_ext(sLight, 0, x - _cx, y  - _cy, 1.6, 1.6, oPlayer.direction, c_white, global.torch);            
+			if(oPlayer.body == "P"){
+				draw_sprite_ext(sLight, 0, x - _cx, y  - _cy, 1.6, 1.6, oPlayer.direction, c_white, global.torch); 
+			}
 		    break;
 			
 		case oEnemy:
+			if(id.body == "P"){
 		    draw_sprite_ext(sLight, 0, x - _cx, y  - _cy, 1.6, 1.6, id.image_angle, c_white, id.torch);            
-		    break;
+			}
+			break;
 		}
     }
 gpu_set_blendmode(bm_normal);
