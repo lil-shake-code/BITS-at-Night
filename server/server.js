@@ -65,7 +65,7 @@ function shootBullet(shootersId) {
         //we have the current coordinates of the bullet. Now check if it is colliding with someone
         for (let i in players) {
             var distance = Math.sqrt((current_x - players[i].x) ** 2 + (current_y - players[i].y) ** 2);
-            console.log(distance)
+            // console.log(distance)
             if (distance < 16 && players[i].body == "P") {
                 if (players[i].id != shootersId) { //make sure friendly fire doesnt exist
                     return players[i].id; //id of the guy who got shot
@@ -79,6 +79,85 @@ function shootBullet(shootersId) {
 
     return -1; ///-1 means the bullet hasnt hit anyone yet
 }
+
+
+function point_inside_trigon(s, a, b, c) {
+    var as_x = s[0] - a[0];
+    var as_y = s[1] - a[1];
+
+    var s_ab = (b[0] - a[0]) * as_y - (b[1] - a[1]) * as_x > 0;
+
+    if ((c[0] - a[0]) * as_y - (c[1] - a[1]) * as_x > 0 == s_ab) return false;
+
+    if ((c[0] - b[0]) * (s[1] - b[1]) - (c[1] - b[1]) * (s[0] - b[0]) > 0 != s_ab) return false;
+
+    return true;
+}
+
+
+
+function isGhostInTorchLight(ghostX, ghostY, torchX, torchY, direction) {
+    var ghostRelPosVector = [ghostX - torchX, ghostY - torchY]; //relative position vector of the ghsot wrt player
+    var torchRadius = 110;
+    var P1 = [
+        torchRadius * Math.cos((direction + 40) * 3.14159 / 180), -torchRadius * Math.sin((direction + 40) * 3.14159 / 180),
+    ];
+    var P2 = [
+        torchRadius * Math.cos((direction - 40) * 3.14159 / 180), -torchRadius * Math.sin((direction - 40) * 3.14159 / 180),
+    ];
+
+    console.log("ghost in torchlight" + point_inside_trigon(ghostRelPosVector, P1, P2, [0, 0]))
+
+    return point_inside_trigon(ghostRelPosVector, P1, P2, [0, 0]);
+
+
+}
+
+
+
+
+
+function ghostHealthReducer() {
+
+    for (let i in players) {
+        if (players[i].body == "G") {
+            //if this player is a ghost what to do?
+            var thisGhostX = players[i].x;
+            var thisGhostY = players[i].y;
+            //we have the coordinates of the ghost. Now look at real players 
+            //Remember that THE MUST HAVE TORCH ON!
+            for (let j in players) {
+                //now checking for real players
+                if (players[j].body == "P" && players[j].T) {
+                    //we found a player with torch on 
+                    var thisTorchX = players[j].x;
+                    var thisTorchY = players[j].y;
+                    var thisTorchAngle = players[j].A;
+
+                    //run the other function
+                    if (isGhostInTorchLight(thisGhostX, thisGhostY, thisTorchX, thisTorchY, thisTorchAngle)) {
+                        players[i].H -= 1; //reduce health by 1 every frame
+
+                        //what if the ghost is dead?
+                        //for now just kill the socket
+                        if (players[i].H < 0) {
+                            players[i].socket.close();
+                        }
+
+                    }
+                }
+            }
+
+        }
+    }
+
+    setTimeout(ghostHealthReducer, 1000 / 60)
+}
+ghostHealthReducer()
+
+
+
+
 
 
 
