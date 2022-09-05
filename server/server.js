@@ -136,7 +136,7 @@ function ghostHealthReducer() {
 
                     //run the other function
                     if (isGhostInTorchLight(thisGhostX, thisGhostY, thisTorchX, thisTorchY, thisTorchAngle)) {
-                        players[i].H -= 1; //reduce health by 1 every frame
+                        players[i].H -= 6; //reduce health by 6 every frame
 
                         //what if the ghost is dead?
                         //for now just kill the socket
@@ -157,7 +157,45 @@ ghostHealthReducer()
 
 
 
+function GhostsScarePlayers() {
 
+    for (let i in players) {
+        if (players[i].body == "G") {
+            //going through all ghosts
+            for (let j in players) {
+                if (players[j].body == "P") {
+                    //going though all players for this one ghost
+
+                    // 1. check torch is off for the player
+                    // 2. check that P and G are very close ... approx 40px?
+                    var dist = Math.sqrt((players[i].x - players[j].x) ** 2 + (players[i].y - players[j].y) ** 2);
+                    var thisTorchX = players[j].x;
+                    var thisTorchY = players[j].y;
+                    var thisTorchAngle = players[j].A;
+                    if (!isGhostInTorchLight(players[i].x, players[i].y, thisTorchX, thisTorchY, thisTorchAngle) && dist < 30) {
+                        //kill this player and jumpscare him   , also j is the player
+                        players[j].H = -1;
+                        if (players[j].H < 0 && players[j].body == "P") {
+                            //Turn him into a ghost
+                            players[j].body = "G";
+                            players[j].H = 100; //reset ghost health to 100
+                        }
+                        //now jumpscare this cluecless bastard
+                        var sendThis = {
+                            eventName: "jumpscare",
+                        }
+                        players[j].socket.send(JSON.stringify(sendThis));
+
+                    }
+                }
+            }
+        }
+    }
+
+
+    setTimeout(GhostsScarePlayers, 1000 / 60);
+}
+GhostsScarePlayers();
 
 
 

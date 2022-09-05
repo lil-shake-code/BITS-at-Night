@@ -82,6 +82,10 @@ switch(async_load[?"type"]){
 					}
 				}
 			break;
+			
+			case "jumpscare":
+				show_message("You got jumpscared")
+			break;
 		
 		
 		}
