@@ -13,3 +13,8 @@ shake_length = 120;
 shake_magnitude = 6;
 shake_remain = 0;
 buff = 32;
+
+themeMusic = audio_play_sound(SoundTheme , 1 , true);
+
+transitionToJumpscareMusic = audio_play_sound(TransitionToJumpscare , 2 , true);
+audio_stop_sound(TransitionToJumpscare);
