@@ -1,5 +1,8 @@
 
 var move = keyboard_check(ord("W")) - keyboard_check(ord("S"))
+if(instance_exists( oJumpscare)){
+	move = 0;
+}
 speed = 3*move
 
 
@@ -101,3 +104,5 @@ if(body=="G"){
 	}
 	
 }
+
+audio_listener_position(0,0,0)

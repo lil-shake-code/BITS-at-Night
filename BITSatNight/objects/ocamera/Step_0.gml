@@ -91,3 +91,9 @@ if(oPlayer.body == "P"){
 }else{
 	audio_stop_sound(TransitionToJumpscare);
 }
+
+audio_listener_position(x,y,0)
+var players = instance_number(oEnemy)
+if players<2 players =2;
+global.falloff_factor = players*3
+global.half_sound = 100/(ln(players))

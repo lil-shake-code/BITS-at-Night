@@ -84,7 +84,9 @@ switch(async_load[?"type"]){
 			break;
 			
 			case "jumpscare":
-				show_message("You got jumpscared")
+				//show_message("You got jumpscared")
+				instance_create_layer(10000,10000,"Jumpscare",oJumpscare)
+				audio_play_sound(SoundJumpscare , 3 , false);
 			break;
 		
 		
