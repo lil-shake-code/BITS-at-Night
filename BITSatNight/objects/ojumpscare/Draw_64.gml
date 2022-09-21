@@ -1,5 +1,5 @@
 if(y > oPlayer.y){
-	y -= 50;
+	y -= 100;
 }
 if(!audio_is_playing(SoundJumpscare)){
 	image_alpha -= 0.1

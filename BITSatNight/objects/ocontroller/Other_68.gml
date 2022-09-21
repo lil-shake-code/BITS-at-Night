@@ -61,6 +61,7 @@ switch(async_load[?"type"]){
 				
 				with(oEnemy){
 					if(clientId == real(realData[?"id"]) ){
+						effect_create_above(ef_smoke,x,y,0,c_blue);
 						instance_destroy(id);
 					
 					}

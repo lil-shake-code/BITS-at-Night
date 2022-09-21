@@ -218,8 +218,8 @@ wss.on("connection", ws => {
                             id: clientId,
                             name: realData.username,
                             socket: ws,
-                            x: 2600, //we cam chang this later
-                            y: 1850, // we can change this later
+                            x: 2500, //we cam chang this later
+                            y: 1000, // we can change this later
                             A: 0, //THE ANGLE
                             T: false, // if torch is on or off
                             H: 100, //health
