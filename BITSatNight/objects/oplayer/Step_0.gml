@@ -3,7 +3,7 @@ var move = keyboard_check(ord("W")) - keyboard_check(ord("S"))
 if(instance_exists( oJumpscare)){
 	move = 0;
 }
-speed = 3*move
+speed = 2*move
 
 
 if(point_distance(x,y, mouse_x , mouse_y) > 30){
