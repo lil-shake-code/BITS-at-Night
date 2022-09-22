@@ -199,6 +199,67 @@ GhostsScarePlayers();
 
 
 
+
+const spawnPoints = [
+    [2500, 884], //Ice n spice
+    [1867, 2047], //central lawn
+    [2431, 1858], //C Mess front
+    [4500, 500], //front of DH2
+    [2100, 163], //lovers lane
+    [1360, 325], //football field
+    [953, 1407], //malakars roads junction
+    [723, 2130], //AH5 non central lawn entry side
+    [3487, 1173], //D Spine entrance
+    [3500, 1737], //Food king
+]
+
+function LeastPopulatedSpawnPoint(forGhosts) {
+    var closestPlayerDistanceArray = [];
+    for (let i in spawnPoints) {
+        //we have this particular spawn point, now find the closest player to it
+        var thisSpawnPointLeastDistance = 10000000;
+        for (let j in players) {
+            if (forGhosts) {
+                if (players[j].body == "P") {
+                    if ((Math.sqrt((players[j].x - spawnPoints[i][0]) ** 2 + (players[j].y - spawnPoints[i][1]) ** 2)) < thisSpawnPointLeastDistance) {
+                        //set this new players - point distance as closest distance
+                        thisSpawnPointLeastDistance = (Math.sqrt((players[j].x - spawnPoints[i][0]) ** 2 + (players[j].y - spawnPoints[i][1]) ** 2))
+                    }
+                }
+
+            } else {
+                if ((Math.sqrt((players[j].x - spawnPoints[i][0]) ** 2 + (players[j].y - spawnPoints[i][1]) ** 2)) < thisSpawnPointLeastDistance) {
+                    //set this new players - point distance as closest distance
+                    thisSpawnPointLeastDistance = (Math.sqrt((players[j].x - spawnPoints[i][0]) ** 2 + (players[j].y - spawnPoints[i][1]) ** 2))
+                }
+            }
+
+        }
+        //now we have the  closespoint - player distance. Add to array
+        closestPlayerDistanceArray.push(thisSpawnPointLeastDistance);
+    }
+    //we have done this for all spwnpoints and now we have the distances array.
+    //lower the distance worse it is , so we want the biggest distance here
+    var highestDistanceIndex = 0;
+    for (let i in closestPlayerDistanceArray) {
+        if (closestPlayerDistanceArray[i] > closestPlayerDistanceArray[highestDistanceIndex]) {
+            highestDistanceIndex = i;
+        }
+    }
+    console.log("closest player distances array")
+    console.log(closestPlayerDistanceArray)
+    console.log("least populatyed point is")
+    console.log(spawnPoints[highestDistanceIndex])
+    return spawnPoints[highestDistanceIndex];
+}
+
+
+
+
+
+
+
+
 wss.on("connection", ws => {
     //code that should execute just after the player connects
 
@@ -218,8 +279,8 @@ wss.on("connection", ws => {
                             id: clientId,
                             name: realData.username,
                             socket: ws,
-                            x: 2500, //we cam chang this later
-                            y: 1000, // we can change this later
+                            x: LeastPopulatedSpawnPoint(false)[0],
+                            y: LeastPopulatedSpawnPoint(false)[1],
                             A: 0, //THE ANGLE
                             T: false, // if torch is on or off
                             H: 100, //health
@@ -239,7 +300,7 @@ wss.on("connection", ws => {
                     }
                     ws.send(JSON.stringify(sendThis));
 
-
+                    console.log(players)
 
 
                     sendThis = {
@@ -322,6 +383,10 @@ wss.on("connection", ws => {
                                     //Turn him into a ghost
                                     players[i].body = "G";
                                     players[i].H = 100; //reset ghost health to 100
+                                    //change x and y
+                                    players[i].x = LeastPopulatedSpawnPoint(true)[0];
+                                    players[i].y = LeastPopulatedSpawnPoint(true)[1];
+
                                 }
 
                             }

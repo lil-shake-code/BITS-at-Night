@@ -14,7 +14,8 @@ if(point_distance(x,y, mouse_x , mouse_y) > 30){
 
 if(position_meeting(x + lengthdir_x(speed , direction),y +  lengthdir_y(speed , direction),oWall)){
 	//colliding with a wall - no freedom in image angle , only in direction
-	if (body=="P") speed =0
+	if (body=="P") speed =0;
+	if (body=="G") image_angle = direction;
 	
 	
 }else{

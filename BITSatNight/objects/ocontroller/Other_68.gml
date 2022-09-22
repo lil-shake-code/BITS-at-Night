@@ -45,12 +45,23 @@ switch(async_load[?"type"]){
 					image_angle = real(realData[?"A"]);
 					torch = realData[?"T"]
 					enemyHealth = real(realData[?"H"]);
+					//detect switch
+					if(body == "P" and realData[?"body"]=="G"){
+						effect_create_above(ef_firework , x , y ,1 ,c_red)
+						x = real(realData[?"x"]);
+						y = real(realData[?"y"]);
+					}
 					body = realData[?"body"]
 					
 					}
 				}
 				if(global.clientId == (realData[?"id"])){
 					health  = real(realData[?"H"]);
+					//detect switch
+					if(oPlayer.body == "P" and realData[?"body"]=="G"){
+						oPlayer.x = real(realData[?"x"]);
+						oPlayer.y = real(realData[?"y"]);
+					}
 					oPlayer.body = realData[?"body"]
 				
 				}

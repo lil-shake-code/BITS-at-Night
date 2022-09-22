@@ -6,3 +6,7 @@ if(oPlayer.body == "G"){
 
 	global.darkness = global.darkness*0.7+0.3*(ghostDarkness)
 }
+jay++;
+if(jay mod 5 ==0){
+	streetlights = random(1)
+}

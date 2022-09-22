@@ -22,12 +22,17 @@ with (oLightParent)
     {
 var _sw = sprite_width / 2;
 var _sh = sprite_height / 2;
+
+draw_sprite_ext(sLight, 0, 2600 ,1000 , 1.6, 1.6, 0, c_white, 0.9);  
+
 switch(object_index)
 {
 		
 		case oPlayer:
 			if(oPlayer.body == "P"){
 				draw_sprite_ext(sLight, 0, x - _cx, y  - _cy, 1.6, 1.6, oPlayer.direction, c_white, global.torch); 
+				//
+			
 			}
 		    break;
 			
@@ -35,6 +40,10 @@ switch(object_index)
 			if(id.body == "P"){
 		    draw_sprite_ext(sLight, 0, x - _cx, y  - _cy, 1.6, 1.6, id.image_angle, c_white, id.torch);            
 			}
+			break;
+		case oStreetLight:
+		
+		    draw_sprite_ext(sStreetLight, 0,x - _cx, y  - _cy , 1.5, 1.5,0, c_yellow, oLighting.streetlights);            
 			break;
 		}
     }
