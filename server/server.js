@@ -23,6 +23,7 @@ function stateUpdate() {
             T: players[i].T,
             H: players[i].H,
             body: players[i].body,
+            K: players[i].K,
         }
 
         for (let j in players) {
@@ -142,6 +143,8 @@ function ghostHealthReducer() {
                         //for now just kill the socket
                         if (players[i].H < 0) {
                             players[i].socket.close();
+                            //ADD TO THE KILLERS KILL COUNT
+                            players[j].K++;
                         }
 
                     }
@@ -185,6 +188,9 @@ function GhostsScarePlayers() {
                             eventName: "jumpscare",
                         }
                         players[j].socket.send(JSON.stringify(sendThis));
+
+                        //increase the kill count of the G
+                        players[i].K++;
 
                     }
                 }
@@ -285,6 +291,7 @@ wss.on("connection", ws => {
                             T: false, // if torch is on or off
                             H: 100, //health
                             body: "P", //P G or D
+                            K: 0, //kills
                         }
                         //cross ref the id to ws
                     ws.clientId = clientId;
@@ -364,12 +371,14 @@ wss.on("connection", ws => {
                         shooter: realData.id
                     }
                     for (let i in players) {
-                        if (i != sendThis.shooter) {
+                        if (players[i].id != sendThis.shooter) {
                             players[i].socket.send(JSON.stringify(sendThis));
                         }
                     }
                     var victim = shootBullet(realData.id);
                     if (victim != -1) {
+                        //this means we actually hit a player
+
 
 
                         console.log("victim is ");
@@ -386,6 +395,13 @@ wss.on("connection", ws => {
                                     //change x and y
                                     players[i].x = LeastPopulatedSpawnPoint(true)[0];
                                     players[i].y = LeastPopulatedSpawnPoint(true)[1];
+
+                                    // ADD TO KILLERS KILL COUNT
+                                    for (let f in players) {
+                                        if (players[f].id == sendThis.shooter) {
+                                            players[f].K++;
+                                        }
+                                    }
 
                                 }
 

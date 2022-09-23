@@ -7,3 +7,7 @@ blink=0;
 oldHealth=100;
 
 isGhost  =false;
+kills=0;
+
+
+oldX =x

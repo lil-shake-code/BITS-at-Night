@@ -4,3 +4,5 @@ network_connect_raw_async(socket , "localhost" , 3000);
 
 global.clientId = 0;
 
+global.messages = []
+

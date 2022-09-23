@@ -30,13 +30,14 @@ if(body == "P") draw_healthbar(x-10 , y-10-2 , x+10 , y-10+2 , enemyHealth , c_b
 //ghosts sprite
 if(body=="G"){
 	sprite_index = sGhost
-	if(speed==0){
+	if(oldX ==x){
 		image_speed = 0;
 	}else{
 		image_speed = 1;
 	}
 	
 }
+oldX = x
 
 if(body=="G" and !isGhost){
 	isGhost = true;

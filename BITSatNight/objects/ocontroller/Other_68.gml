@@ -51,9 +51,10 @@ switch(async_load[?"type"]){
 						x = real(realData[?"x"]);
 						y = real(realData[?"y"]);
 					}
-					body = realData[?"body"]
+					body = realData[?"body"];
 					
 					}
+					kills = real(realData[?"K"]);
 				}
 				if(global.clientId == (realData[?"id"])){
 					health  = real(realData[?"H"]);
@@ -62,7 +63,8 @@ switch(async_load[?"type"]){
 						oPlayer.x = real(realData[?"x"]);
 						oPlayer.y = real(realData[?"y"]);
 					}
-					oPlayer.body = realData[?"body"]
+					oPlayer.body = realData[?"body"];
+					score = real(realData[?"K"]);
 				
 				}
 			break;
