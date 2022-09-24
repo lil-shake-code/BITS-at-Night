@@ -107,7 +107,7 @@ function isGhostInTorchLight(ghostX, ghostY, torchX, torchY, direction) {
         torchRadius * Math.cos((direction - 40) * 3.14159 / 180), -torchRadius * Math.sin((direction - 40) * 3.14159 / 180),
     ];
 
-    console.log("ghost in torchlight" + point_inside_trigon(ghostRelPosVector, P1, P2, [0, 0]))
+    //console.log("ghost in torchlight" + point_inside_trigon(ghostRelPosVector, P1, P2, [0, 0]))
 
     return point_inside_trigon(ghostRelPosVector, P1, P2, [0, 0]);
 
@@ -186,6 +186,14 @@ function GhostsScarePlayers() {
                         //now jumpscare this cluecless bastard
                         var sendThis = {
                             eventName: "jumpscare",
+                        }
+                        players[j].socket.send(JSON.stringify(sendThis));
+
+                        //now send alert to this player
+                        sendThis = {
+                            eventName: "alert",
+                            type: "line",
+                            message: "You were scared by " + players[i].name,
                         }
                         players[j].socket.send(JSON.stringify(sendThis));
 
@@ -370,9 +378,13 @@ wss.on("connection", ws => {
                         eventName: "bullet_shot",
                         shooter: realData.id
                     }
+                    var shooterName = "";
                     for (let i in players) {
                         if (players[i].id != sendThis.shooter) {
                             players[i].socket.send(JSON.stringify(sendThis));
+                        } else {
+                            shooterName = players[i].name;
+                            console.log("the shooters name is ")
                         }
                     }
                     var victim = shootBullet(realData.id);
@@ -395,6 +407,17 @@ wss.on("connection", ws => {
                                     //change x and y
                                     players[i].x = LeastPopulatedSpawnPoint(true)[0];
                                     players[i].y = LeastPopulatedSpawnPoint(true)[1];
+
+
+
+                                    //now send alert to this player
+                                    sendThis = {
+                                        eventName: "alert",
+                                        type: "line",
+                                        message: "You were killed by " + shooterName,
+                                    }
+                                    players[i].socket.send(JSON.stringify(sendThis));
+
 
                                     // ADD TO KILLERS KILL COUNT
                                     for (let f in players) {

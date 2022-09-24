@@ -102,6 +102,17 @@ switch(async_load[?"type"]){
 				instance_create_layer(10000,10000,"Jumpscare",oJumpscare)
 				audio_play_sound(SoundJumpscare , 3 , false);
 			break;
+			
+			case "alert":
+			if(realData[?"type"] == "line"){
+			//line alerts
+			array_push(global.messages ,   [ realData[?"message"] ,5 ])
+			//shows this message for 5 seconds
+			//show_message(buffer_processed)
+			
+			}
+			
+			break;
 		
 		
 		}

@@ -27,9 +27,12 @@ draw_text_transformed(bw*0.01 , bh*0.2 , "Players left : " + string(players) , 0
 
 
 //messages or alerts
-if(array_length(global.messages > 0)){
+if(array_length(global.messages) > 0){
 	draw_set_halign(fa_center);
-	draw_text_transformed(bw*0.05 , bh*0.1 , global.messages[0][0] , 0.3*scale, 0.3*scale ,global.messages[0][1] )
+	draw_set_color(c_red);
+	draw_set_alpha(global.messages[0][1])
+	draw_text_transformed(bw*0.5 , bh*0.1 , global.messages[0][0] , 0.5*scale, 0.5*scale ,0 )
+	draw_set_alpha(1);
 	global.messages[0][1]  -= 0.5/60 ; //slowly fade away
 	
 	if(global.messages[0][1] < 0.5){

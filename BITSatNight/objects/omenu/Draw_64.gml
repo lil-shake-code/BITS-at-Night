@@ -31,7 +31,7 @@ if(mouse_check_button_pressed(mb_left)){
 		var Buffer = buffer_create(1, buffer_grow ,1);
 		var data = ds_map_create();
 		data[? "eventName"] = "create_me"
-		global.usename = keyboard_string;
+		global.username = keyboard_string;
 		data[?"username"] =  global.username;
 		
 	
