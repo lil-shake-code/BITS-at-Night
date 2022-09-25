@@ -1,6 +1,6 @@
 //set up camera
 cam = view_camera[0];
-follow = oPlayer; //returns id of first insatnce of oplayer
+
 //view_w_half = camera_get_view_width(cam)*0.5;
 //view_h_half = camera_get_view_height(cam)*0.5;
 xTo = xstart;
@@ -54,44 +54,45 @@ shake_remain = max(0,shake_remain-(shake_magnitude/shake_length))
 
 //setting the camera to this objects x and y
 camera_set_view_pos(cam,x-view_w_half,y-view_h_half);
+if(instance_exists(oPlayer))
+{
+	//if ghost dont play music
+	if(oPlayer.body == "G"){
+		audio_stop_sound(themeMusic);
+	}
 
-//if ghost dont play music
-if(oPlayer.body == "G"){
-	audio_stop_sound(themeMusic);
-}
-
-//if you are a P and theres a G very close by transition to jumpscare
-if(oPlayer.body == "P"){
-	var closestGhost = noone;
-	var closestGhostDistance = 100000;
-	with(oEnemy){
-		if(body == "G"){
-			if( distance_to_object(oPlayer) < closestGhostDistance  )
-			{
-				closestGhostDistance = distance_to_object(oPlayer) ;
-				closestGhost = id;
+	//if you are a P and theres a G very close by transition to jumpscare
+	if(oPlayer.body == "P"){
+		var closestGhost = noone;
+		var closestGhostDistance = 100000;
+		with(oEnemy){
+			if(body == "G"){
+				if( distance_to_object(oPlayer) < closestGhostDistance  )
+				{
+					closestGhostDistance = distance_to_object(oPlayer) ;
+					closestGhost = id;
+				}
 			}
 		}
-	}
-	var ghostNearby = false;
-	if(closestGhost != noone){
-		if(point_distance(oPlayer.x , oPlayer.y , closestGhost.x,closestGhost.y) < 100){
-			ghostNearby = true;
-		}
+		var ghostNearby = false;
+		if(closestGhost != noone){
+			if(point_distance(oPlayer.x , oPlayer.y , closestGhost.x,closestGhost.y) < 100){
+				ghostNearby = true;
+			}
 	
-		if(ghostNearby and ! audio_is_playing(TransitionToJumpscare)){
-			audio_play_sound(TransitionToJumpscare , 2 , true);
+			if(ghostNearby and ! audio_is_playing(TransitionToJumpscare)){
+				audio_play_sound(TransitionToJumpscare , 2 , true);
 		
-		}
+			}
 		  
-	}
-	if(!ghostNearby) {
+		}
+		if(!ghostNearby) {
+			audio_stop_sound(TransitionToJumpscare);
+		}
+	}else{
 		audio_stop_sound(TransitionToJumpscare);
 	}
-}else{
-	audio_stop_sound(TransitionToJumpscare);
 }
-
 audio_listener_position(x,y,0)
 var players = instance_number(oEnemy)
 if players<2 players =2;

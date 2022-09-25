@@ -99,7 +99,7 @@ function point_inside_trigon(s, a, b, c) {
 
 function isGhostInTorchLight(ghostX, ghostY, torchX, torchY, direction) {
     var ghostRelPosVector = [ghostX - torchX, ghostY - torchY]; //relative position vector of the ghsot wrt player
-    var torchRadius = 110;
+    var torchRadius = 150;
     var P1 = [
         torchRadius * Math.cos((direction + 40) * 3.14159 / 180), -torchRadius * Math.sin((direction + 40) * 3.14159 / 180),
     ];
@@ -140,9 +140,27 @@ function ghostHealthReducer() {
                         players[i].H -= 6; //reduce health by 6 every frame
 
                         //what if the ghost is dead?
-                        //for now just kill the socket
+
                         if (players[i].H < 0) {
-                            players[i].socket.close();
+                            players[i].body = "D";
+                            var sendThis = {
+                                eventName: "you_died",
+                                killer: players[j].id,
+                            }
+                            players[i].socket.send(JSON.stringify(sendThis))
+
+
+
+                            sendThis = {
+                                eventName: "destroy_player",
+                                id: players[i].id,
+                            }
+                            for (let q in players) {
+                                players[q].socket.send(JSON.stringify(sendThis))
+                            }
+
+
+
                             //ADD TO THE KILLERS KILL COUNT
                             players[j].K++;
                         }
@@ -321,6 +339,7 @@ wss.on("connection", ws => {
                     sendThis = {
                             eventName: "create_player",
                             id: player.id,
+                            name: player.name,
                             x: player.x,
                             y: player.y
                         }

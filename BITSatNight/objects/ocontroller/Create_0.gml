@@ -6,3 +6,5 @@ global.clientId = 0;
 
 global.messages = []
 
+whoKilledMe = "";
+

@@ -32,6 +32,7 @@ switch(async_load[?"type"]){
 					new_enemy.x = real(realData[?"x"])
 					new_enemy.y = real(realData[?"y"])
 					new_enemy.enemyUsername = (realData[?"name"])
+					//show_message((realData[?"name"]))
 				}
 				break;
 				
@@ -56,7 +57,7 @@ switch(async_load[?"type"]){
 					}
 					kills = real(realData[?"K"]);
 				}
-				if(global.clientId == (realData[?"id"])){
+				if(instance_exists(oPlayer) and global.clientId == (realData[?"id"])){
 					health  = real(realData[?"H"]);
 					//detect switch
 					if(oPlayer.body == "P" and realData[?"body"]=="G"){
@@ -111,6 +112,21 @@ switch(async_load[?"type"]){
 			//show_message(buffer_processed)
 			
 			}
+			break;
+			
+			
+			case "you_died":
+			var killer = oEnemy;
+			with(oEnemy){
+				if(  real(realData[?"killer"]) == clientId){
+					killer = id;
+					oController.whoKilledMe =enemyUsername;
+				}
+			
+			}
+			oCamera.follow = killer;
+			instance_destroy(oPlayer)
+			alarm[0] = 2*fps;
 			
 			break;
 		
