@@ -1,21 +1,29 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-leaderboard = [];
+global.leaderboard = [];
 with(oEnemy){
-	array_push(leaderboard , [enemyUsername,kills] );
+	array_push(global.leaderboard , [enemyUsername,kills , clientId] );
 
 }
-array_push(leaderboard , [global.username,score] );
+array_push(global.leaderboard , [global.username,score , global.clientId] );
 
 //now sort this array - bubble sort
-for (var i = 0 ; i<array_length(leaderboard) -1; i++){
+for (var i = 0 ; i<array_length(global.leaderboard) ; i++){
+	if(array_length(global.leaderboard)>1)
+	{
+		if(global.leaderboard[i][1] < global.leaderboard[i+1][1]){
+			var next = global.leaderboard[i+1][1]
+			global.leaderboard[i+1] = global.leaderboard[i]
+			global.leaderboard[i] = next;
 	
-	if(leaderboard[i][1] < leaderboard[i+1][1]){
-		var next = leaderboard[i+1][1]
-		leaderboard[i+1] = leaderboard[i]
-		leaderboard[i] = next;
-	
+		}
 	}
 }
 //now its sorted. 
+for (var i = 0 ; i<array_length(global.leaderboard) ; i++){
+	
+	if(global.leaderboard[i][2]==global.clientId){
+		ourPos = i
+	}
+}

@@ -21,6 +21,7 @@
     {"id":{"name":"sBITS","path":"sprites/sBITS/sBITS.yy",},"order":1,},
     {"id":{"name":"sBITS2","path":"sprites/sBITS2/sBITS2.yy",},"order":8,},
     {"id":{"name":"oMenu","path":"objects/oMenu/oMenu.yy",},"order":3,},
+    {"id":{"name":"oMinimap","path":"objects/oMinimap/oMinimap.yy",},"order":12,},
     {"id":{"name":"sStreetLight","path":"sprites/sStreetLight/sStreetLight.yy",},"order":4,},
     {"id":{"name":"SoundGunshot","path":"sounds/SoundGunshot/SoundGunshot.yy",},"order":3,},
     {"id":{"name":"fPressStart2P","path":"fonts/fPressStart2P/fPressStart2P.yy",},"order":0,},
