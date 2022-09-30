@@ -13,7 +13,8 @@ for (var i = 0 ; i<array_length(global.leaderboard) ; i++){
 	if(array_length(global.leaderboard)>1)
 	{
 		if(global.leaderboard[i][1] < global.leaderboard[i+1][1]){
-			var next = global.leaderboard[i+1][1]
+			
+			var next = global.leaderboard[i+1]
 			global.leaderboard[i+1] = global.leaderboard[i]
 			global.leaderboard[i] = next;
 	

@@ -26,14 +26,14 @@ if(instance_exists(oPlayer))
 		draw_sprite_ext(oPlayer.sprite_index,oPlayer.image_index,
 		x_pos+sc*(oPlayer.x)/10,
 		y_pos+sc*(oPlayer.y)/10,
-		0.3*sc,0.3*sc,oPlayer.image_index,c_white,1);
+		0.3*sc,0.3*sc,oPlayer.image_angle,c_white,1);
 		
 		with(oEnemy){
 		if(body=="P"){
 			draw_sprite_ext(oPlayer.sprite_index,oPlayer.image_index,
 			x_pos+sc*(x)/10,
 			y_pos+sc*(y)/10,
-			0.3*sc,0.3*sc,,c_white,1);
+			0.3*sc,0.3*sc,image_angle,c_white,1);
 		
 		}
 		
