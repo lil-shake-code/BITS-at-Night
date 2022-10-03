@@ -6,3 +6,4 @@ var t2 = global.half_sound
 var t3 = 60000
 var sd = SoundGunshot
 audio_play_sound_at(sd, x, y, 0,t2,t3, falloff_fac, false, 1);
+whoFiredMe = -1;

@@ -95,6 +95,7 @@ switch(async_load[?"type"]){
 						bullet.speed = 10;
 						bullet.direction = id.image_angle;
 						bullet.image_angle = bullet.direction;
+						bullet.whoFiredMe = clientId;
 						
 	
 				

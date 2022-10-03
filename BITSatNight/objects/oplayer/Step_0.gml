@@ -54,6 +54,7 @@ if(mouse_check_button_pressed(mb_left) and reloading <0 and body=="P"){
 	bullet.speed = 10;
 	bullet.direction = direction;
 	bullet.image_angle = bullet.direction;
+	bullet.whoFiredMe = global.clientId;
 	reloading = 20;
 	
 	//recoil animation

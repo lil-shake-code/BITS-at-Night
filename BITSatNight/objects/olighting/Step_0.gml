@@ -1,5 +1,5 @@
 //adjust global.darkness here
-var standardDarkness = 0.9
+var standardDarkness = 0.93
 var ghostDarkness = 0.5
 global.darkness = global.darkness*0.7+0.3*(standardDarkness)
 if(instance_exists(oPlayer)){
