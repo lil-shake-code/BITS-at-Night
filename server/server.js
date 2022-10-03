@@ -15,16 +15,17 @@ var clientId = 0;
 function stateUpdate() {
     for (let i in players) {
         var sendThis = {
-            eventName: "state_update", //grabbing this player's info
-            id: players[i].id,
-            x: players[i].x,
-            y: players[i].y,
-            A: players[i].A,
-            T: players[i].T,
-            H: players[i].H,
-            body: players[i].body,
-            K: players[i].K,
-        }
+                eventName: "state_update", //grabbing this player's info
+                id: players[i].id,
+                x: players[i].x,
+                y: players[i].y,
+                A: players[i].A,
+                T: players[i].T,
+                H: players[i].H,
+                body: players[i].body,
+                K: players[i].K,
+            }
+            //console.log(sendThis)
 
         for (let j in players) {
             players[j].socket.send(JSON.stringify(sendThis)); //sending it to every other player
@@ -399,7 +400,7 @@ wss.on("connection", ws => {
                     }
                     var shooterName = "";
                     for (let i in players) {
-                        if (players[i].id != sendThis.shooter) {
+                        if (players[i].id != realData.id) {
                             players[i].socket.send(JSON.stringify(sendThis));
                         } else {
                             shooterName = players[i].name;
@@ -440,7 +441,7 @@ wss.on("connection", ws => {
 
                                     // ADD TO KILLERS KILL COUNT
                                     for (let f in players) {
-                                        if (players[f].id == sendThis.shooter) {
+                                        if (players[f].id == realData.id) {
                                             players[f].K++;
                                         }
                                     }

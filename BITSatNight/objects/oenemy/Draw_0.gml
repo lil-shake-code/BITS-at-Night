@@ -39,7 +39,9 @@ if(body=="G"){
 }
 oldX = x
 
+
+
 if(body=="G" and !isGhost){
 	isGhost = true;
-	effect_create_above(ef_firework,x,y,0,c_red);
+	
 }

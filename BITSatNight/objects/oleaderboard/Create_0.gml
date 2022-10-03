@@ -2,4 +2,5 @@
 // You can write your code in this editor
 ourPos=0;
 global.leaderboard = [];
+jay = 0
 

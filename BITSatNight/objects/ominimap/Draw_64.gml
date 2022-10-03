@@ -8,8 +8,8 @@ if(instance_exists(oPlayer))
 	var sc = scale*1.5
 
 	
-	var x_pos =bw-300*sc-10*sc
-	var y_pos = bh-200*sc-5-10*sc
+	var x_pos =bw-480*sc-10*sc
+	var y_pos = bh-260*sc-5-10*sc
 
 	var mouse__x = device_mouse_x_to_gui(0);
 	var mouse__y = device_mouse_y_to_gui(0)
@@ -26,14 +26,14 @@ if(instance_exists(oPlayer))
 		draw_sprite_ext(oPlayer.sprite_index,oPlayer.image_index,
 		x_pos+sc*(oPlayer.x)/10,
 		y_pos+sc*(oPlayer.y)/10,
-		0.3*sc,0.3*sc,oPlayer.image_angle,c_white,1);
+		0.6*sc,0.6*sc,oPlayer.image_angle,c_white,1);
 		
 		with(oEnemy){
 		if(body=="P"){
-			draw_sprite_ext(oPlayer.sprite_index,oPlayer.image_index,
+			draw_sprite_ext(sprite_index,image_index,
 			x_pos+sc*(x)/10,
 			y_pos+sc*(y)/10,
-			0.3*sc,0.3*sc,image_angle,c_white,1);
+			0.5*sc,0.5*sc,image_angle,c_white,1);
 		
 		}
 		
